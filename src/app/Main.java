@@ -29,8 +29,27 @@ public class Main {
 
             switch (opcion) {
                 case 1:
-                    // TODO: Implementar por Miembro 1
-                    System.out.println("\n🔧 Funcionalidad 'Agregar tarea' en desarrollo...");
+                    System.out.println("\n➕ AGREGAR NUEVA TAREA");
+                    System.out.println("-----------------------");
+                    // Pedir descripción
+                    System.out.print("Descripción: ");
+                    String descripcion = scanner.nextLine().trim();
+                    // Validar que no esté vacía
+                    if (descripcion.isEmpty()) {
+                        System.out.println("✗ La descripción no puede estar vacía");
+                        break;
+                    }
+                    // Pedir fecha
+                    System.out.print("Fecha límite (YYYY-MM-DD): ");
+                    String fechaStr = scanner.nextLine().trim();
+                    // Intentar crear la tarea
+                    try {
+                        LocalDate fecha = LocalDate.parse(fechaStr);
+                        Tarea nuevaTarea = new Tarea(descripcion, fecha);
+                        gestor.agregarTarea(nuevaTarea);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("✗ Formato de fecha inválido. Usa YYYY-MM-DD (ejemplo: 2025-12-31)");
+                    }
                     break;
 
                 case 2:
